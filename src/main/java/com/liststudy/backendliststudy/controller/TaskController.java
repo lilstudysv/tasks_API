@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/tasks")
@@ -45,13 +47,13 @@ public class TaskController {
 	}
 
 	@PostMapping
-	public ResponseEntity<TaskOutputDTO> create(@RequestBody TaskCreateInputDTO taskCreateInputDTO) {
+	public ResponseEntity<TaskOutputDTO> create(@Valid @RequestBody TaskCreateInputDTO taskCreateInputDTO) {
 		LOG.info("POST:/tasks params TaskCreateInputDTO: "+ taskCreateInputDTO.toString());
 		return ResponseEntity.ok(taskService.create(taskCreateInputDTO));
 	}
 
 	@PutMapping
-	public ResponseEntity<TaskOutputDTO> update(@RequestBody TaskUpdateInputDTO taskUpdateInputDTO) {
+	public ResponseEntity<TaskOutputDTO> update(@Valid @RequestBody TaskUpdateInputDTO taskUpdateInputDTO) {
 		LOG.info("PUT:/tasks params TaskCreateInputDTO: "+ taskUpdateInputDTO.toString());
 
 		Task task = taskService.getTask(taskUpdateInputDTO.getId());
